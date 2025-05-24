@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP Obfuscator PRO | Loading...</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --primary-dark: #5649c0;
+            --secondary-color: #a29bfe;
+            --dark-color: #2d3436;
+            --light-color: #f5f6fa;
+            --success-color: #00b894;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark-color);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        .redirect-container {
+            max-width: 500px;
+            padding: 40px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+            transform: scale(0.9);
+            animation: scaleIn 0.6s forwards;
+        }
+        
+        @keyframes scaleIn {
+            to { transform: scale(1); }
+        }
+        
+        .redirect-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 2.2em;
+        }
+        
+        .loader {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .loader-circle {
+            width: 16px;
+            height: 16px;
+            margin: 0 8px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+        
+        .loader-circle:nth-child(1) { animation-delay: -0.32s; }
+        .loader-circle:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: #f1f1f1;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 30px 0;
+        }
+        
+        .progress {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            animation: progress 2s linear forwards;
+        }
+        
+        @keyframes progress {
+            to { width: 100%; }
+        }
+        
+        .status {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+        
+        .icon {
+            font-size: 3em;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .btn {
+            margin-top: 30px;
+            padding: 12px 30px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+        
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="redirect-container">
+        <div class="icon">
+            <i class="fas fa-lock"></i>
+        </div>
+        <h1>PHP Obfuscator PRO</h1>
+        <p>Loading the ultimate PHP protection tool...</p>
+        
+        <div class="loader">
+            <div class="loader-circle"></div>
+            <div class="loader-circle"></div>
+            <div class="loader-circle"></div>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+        
+        <div class="status">
+            <span>Initializing</span>
+            <span id="countdown">3s</span>
+        </div>
+        
+        <button class="btn" id="manualRedirect">
+            <i class="fas fa-rocket"></i> Go Now
+        </button>
+        
+        <div class="footer">
+            Powered by SKIBIDIXXX | © 2023
+        </div>
+    </div>
+
+    <script>
+        // Countdown timer
+        let seconds = 3;
+        const countdown = document.getElementById('countdown');
+        const timer = setInterval(() => {
+            seconds--;
+            countdown.textContent = `${seconds}s`;
+            
+            if (seconds <= 0) {
+                clearInterval(timer);
+                window.location.href = '/api';
+            }
+        }, 1000);
+        
+        // Manual redirect button
+        document.getElementById('manualRedirect').addEventListener('click', () => {
+            clearInterval(timer);
+            window.location.href = '/api';
+        });
+        
+        // Add some dynamic status messages
+        const statusMessages = [
+            "Loading security modules...",
+            "Preparing obfuscation engine...",
+            "Almost there...",
+            "Ready to protect your code!"
+        ];
+        
+        let currentMessage = 0;
+        const statusElement = document.querySelector('.status span:first-child');
+        
+        setInterval(() => {
+            currentMessage = (currentMessage + 1) % statusMessages.length;
+            statusElement.textContent = statusMessages[currentMessage];
+        }, 800);
+    </script>
+</body>
+</html>
